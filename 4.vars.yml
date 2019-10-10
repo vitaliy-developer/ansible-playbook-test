@@ -1,0 +1,32 @@
+---
+- name: test
+  hosts: all
+  become: yes
+
+  vars: 
+   message1: Privet
+   message2: People
+   secret: 509HJEGHFD348TJHJ23H4JKHJ3K4H534H5_MY-SECRET
+
+  tasks:
+
+  - name: print secret
+    debug: 
+     var: secret
+
+  - debug: 
+     msg: "Secretnoe slovo: {{ secret }}" 
+
+  - debug: 
+     msg: "Vladelec etogo servera -->{{ ansible_user }}<--"
+
+  - set_fact: full_message="{{ message1 }} {{ message2 }} from {{ ansible_user }}"
+
+  - debug: 
+     var: full_message
+
+  - debug:
+     var: ansible_distribution
+
+  - debug:
+     var: ansible_system_vendor
