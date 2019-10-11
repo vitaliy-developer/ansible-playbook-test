@@ -2,10 +2,10 @@
 1-Ubuntu-Digital_Ocean	ansible_host=46.101.143.39	ansible_user=root
 
 [Amazon-Ubuntu]
-2-Ubuntu-Amazon	ansible_host=52.59.174.147
+2-Ubuntu-Amazon	ansible_host=18.184.184.52
 
-[Amazon-RedHat]
-3-RedHat-Amazon ansible_host=3.120.116.246
+#[Amazon-RedHat]
+#3-RedHat-Amazon ansible_host=3.120.116.246
 
 #[Amazon:vars]
 #ansible_user=ubuntu

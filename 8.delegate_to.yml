@@ -1,0 +1,34 @@
+---
+- name: Create Folder and file
+  hosts: all
+  become: yes
+
+  vars: 
+   mytext: "Hello, user"
+
+  tasks:
+  - name: Ping test
+    ping:
+
+  #выводинформации по моих серверах на мой мастер-ансибл          
+  - name: Output information to the my host
+    shell: echo This server {{ inventory_hostname }} my noda {{ ansible_nodename }} >> /home/inf-log.txt
+    delegate_to: 127.0.0.1
+
+  - name: Create file-1
+    copy:
+     dest: /home/file-new1.txt
+     content: |
+           Text Line1, in file42342
+           Text Line2, in file42342
+           Text Line3, {{ mytext }}
+    delegate_to: 2-Ubuntu-Amazon #запускаеться команда только на том сервере, который указан, на 2-Ubuntu-Amazon будет создан file-1
+
+  - name: Create file-2
+    copy:
+     dest: /home/file-new2.txt
+     content: |
+           Text Line1, in file423423
+           Text Line2, in fil423
+           Text Line3, {{ mytext }}
+

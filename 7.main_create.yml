@@ -1,0 +1,17 @@
+---
+- name: Create Folder and file
+  hosts: all
+  become: yes
+
+  vars: 
+   mytext: "Hello, user"
+
+  tasks:
+  - name: Ping test
+    ping:
+
+  - name: Create Folders
+    include: 7.crea_fold-v.1.0.yml
+
+  - name: Create File
+    include: 7.crea_file-v.1.1.yml

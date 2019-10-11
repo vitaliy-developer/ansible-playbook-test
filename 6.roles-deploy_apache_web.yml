@@ -1,6 +1,7 @@
 ---
 - name: Install & upload web page
-  hosts: Digital_Ocean
+  #hosts: Digital_Ocean
+  hosts: "{{ MYHOSTS }}" #переменная extra-vars
   become: yes
 
   roles: 
