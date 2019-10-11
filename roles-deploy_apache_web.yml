@@ -1,0 +1,8 @@
+---
+- name: Install & upload web page
+  hosts: Digital_Ocean
+  become: yes
+
+  roles: 
+   - { role: deploy_apache_web, when: ansible_system == 'Linux' }
+   #- deploy_apache_web

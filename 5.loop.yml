@@ -1,0 +1,31 @@
+---
+- name: Loop
+  hosts: Digital_Ocean
+  become: yes
+
+  tasks: 
+  - name: Cicle
+    debug: msg="Hello {{ item }}"
+    loop: 
+      - "Vitaliy"
+      - "Natasha"
+
+  - name: Loop
+    shell: echo -n Z >> myfile.txt && cat myfile.txt
+    register: output
+    delay: 2
+    retries: 10
+    until: output.stdout.find("ZZZ") == false
+
+  - name: Print output
+    debug:
+      var: output.stdout
+
+#  - name: Install package
+#    apt: name={{ item} } state=installed
+#    loop:
+#      - python
+#      - tree
+#      - htop
+
+
