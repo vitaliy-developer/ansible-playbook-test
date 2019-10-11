@@ -1,9 +1,9 @@
 ---
 - name: Install & upload web page
-  #hosts: Digital_Ocean
-  hosts: "{{ MYHOSTS }}" #переменная extra-vars
+  hosts: Digital_Ocean
+  #hosts: "{{ MYHOSTS }}" #переменная extra-vars
   become: yes
 
   roles: 
-   - { role: deploy_apache_web, when: ansible_system == 'Linux' }
-   #- deploy_apache_web
+  #- { role: deploy_apache_web, when: ansible_system == 'Linux' }
+   - deploy_apache_web

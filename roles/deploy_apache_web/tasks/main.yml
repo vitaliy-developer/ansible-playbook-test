@@ -1,42 +1,40 @@
 ---
-# tasks file for deploy_apache_web
-  - name: Check Linux version
-    debug: var="ansible_os_family"
+- name: Check Linux version
+  debug: var="ansible_os_family"
 
-  - block: #--block for Debian---
+- block: #--block for Debian---
 
-    - name: install Apache Debian
-      apt: name=apache2  state=latest
+  - name: install Apache Debian
+    apt: name=apache2  state=latest
 
-    - name: start Apache and enable Debian
-      service: name=apache2 state=started enabled=yes
+  - name: start Apache and enable Debian
+    service: name=apache2 state=started enabled=yes
 
-    when: ansible_os_family == "Debian"
+  when: ansible_os_family == "Debian"
 
-  - block: #--block for RedHat---
+- block: #--block for RedHat---
 
-    - name: install Apache RedHat
-      yum: name=httpd  state=latest
+  - name: install Apache RedHat
+    yum: name=httpd  state=latest
 
-    - name: start Apache and enable RedHat
-      service: name=httpd state=started enabled=yes
+  - name: start Apache and enable RedHat
+    service: name=httpd state=started enabled=yes
 
-    when: ansible_os_family == "RedHat"
+  when: ansible_os_family == "RedHat"
 
-  - name: Generate index.html file
-    template: src=index.j2 dest={{ destin_folder }}/index.html mode=0555
-    notify:
+- name: Generate index.html file
+  template: src=index.j2 dest={{ destin_folder }}/index.html mode=0555
+  notify:
           - restart Apache Debian
           - restart Apache RedHat
 
+- name: copy home_page to server
+  copy: src={{ item }} dest={{ destin_folder }} mode=0555
+  loop:
+      # - "index.html"
+        - "img"
 
-  - name: copy home_page to server
-    copy: src={{ item }} dest={{ destin_folder }} mode=0555
-    loop:
-            # - "index.html"
-          - "img"
-
-    notify:
-          - restart Apache Debian
-          - restart Apache RedHat
+  notify:
+       - restart Apache Debian
+       - restart Apache RedHat
 
