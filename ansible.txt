@@ -12,3 +12,10 @@
 11. roles-deploy_apache_web.yml - плейбук не в папке роли а в корне
 12. ansible-playbook roles-deploy_apache_web.yml --extra-var "MYHOSTS=Digital_Ocean" - ДОБАВЛЕНА ПЕРЕМЕННАЯ И ВЫБИРАЕМ НАШИ СЕРВЕРА
 13. в playbookах #7 используеться include(вставка в файлов).
+14. Тестирование Ansible Playbooks с ansible-lint
+- sudo apt install ansible-lint
+- ansible-lint --version
+- ansible-lint test_deploy.yml -v
+15. 
+sudo apt-get install yamllint
+yamllint file.yml

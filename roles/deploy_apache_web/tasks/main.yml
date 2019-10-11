@@ -5,7 +5,7 @@
 - block: #--block for Debian---
 
   - name: install Apache Debian
-    apt: name=apache2  state=latest
+    apt: name=apache2  state=present
 
   - name: start Apache and enable Debian
     service: name=apache2 state=started enabled=yes
@@ -15,7 +15,7 @@
 - block: #--block for RedHat---
 
   - name: install Apache RedHat
-    yum: name=httpd  state=latest
+    yum: name=httpd  state=present
 
   - name: start Apache and enable RedHat
     service: name=httpd state=started enabled=yes
