@@ -12,24 +12,33 @@
   - name: Check Linux version
     debug: var="ansible_os_family"
 
-  - name: install Apache Debian
-    apt: name=apache2  state=latest
+  - block: #--block for Debian---
+
+    - name: install Apache Debian
+      apt: name=apache2  state=latest
+
+    - name: copy home_page to server
+      copy: src={{ source_file }} dest={{ destin_file }} mode=0555
+      notify: restart Apache Debian
+
+    - name: start Apache and enable Debian
+      service: name=apache2 state=started enabled=yes
+
     when: ansible_os_family == "Debian"
 
-  - name: install Apache RedHat
-    yum: name=httpd  state=latest
-    when: ansible_os_family == "RedHat"
+  - block: #--block for RedHat---
 
-  - name: copy home_page to server
-    copy: src={{ source_file }} dest={{ destin_file }} mode=0555
-    #notify: restart Apache
+    - name: install Apache RedHat
+      yum: name=httpd  state=latest
 
-  - name: start Apache and enable Debian
-    service: name=apache2 state=started enabled=yes
-    when: ansible_os_family == "Debian"
+    - name: copy home_page to server
+      copy: src={{ source_file }} dest={{ destin_file }} mode=0555
+      notify: restart Apache RedHat
 
-  - name: start Apache and enable RedHat
-    service: name=httpd state=started enabled=yes
+
+    - name: start Apache and enable RedHat
+      service: name=httpd state=started enabled=yes
+
     when: ansible_os_family == "RedHat"
 
   handlers:
